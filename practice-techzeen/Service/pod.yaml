@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: welcome-pod
+  labels:
+    app: welcome
+spec:
+  containers:
+    - name: welcome-container
+      image: kicbase/echo-server:1.0
+      ports:
+        - containerPort: 8080

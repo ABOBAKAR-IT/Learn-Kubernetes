@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: welcome-deployment
+  labels:
+    app: welcome
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: welcome
+  template:
+    metadata:
+      labels:
+        app: welcome
+
+    spec:
+      containers:
+        - name: welcome-container
+          image: kicbase/echo-server:1.0
+          ports:
+            - containerPort: 8080
