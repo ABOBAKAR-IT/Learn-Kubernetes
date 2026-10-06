@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pizza-config
+data:
+  PIZZA_TYPE: Cheese
+  PAYMENT_MODE: Cash
