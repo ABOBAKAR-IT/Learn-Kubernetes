@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: blue-app
+  name: blue-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blue-app
+  template:
+    metadata:
+      labels:
+        app: blue-app
+        type: canary
+    spec:
+      volumes:
+        - name: host-volume
+          hostPath:
+            path: /home/docker/blue-shared-volume
+            type: DirectoryOrCreate
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: host-volume
+              mountPath: /usr/share/nginx/html
+        - name: debian
+          image: debian
+          volumeMounts:
+            - name: host-volume
+              mountPath: /host-vol
+          command: ["/bin/sh", "-c", "echo Welcome to BLUE App! > /host-vol/index.html ; sleep infinity"]
